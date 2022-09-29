@@ -1,10 +1,19 @@
 <div>
 <h1>Lista de estudiantes del curso Angular.</h1>
-<ul class="list-group">
+<!--<ul class="list-group">
     <li class="list-group-item">Lautaro Martinez</li>
     <li class="list-group-item">Lionel Messi</li>
     <li class="list-group-item">Rodrigo De Paul</li>
     <li class="list-group-item">Emiliano Martinez</li>
     <li class="list-group-item">Angel Di Maria</li>
+</ul> -->
+<ul class="list-group">
+    <div *ngFor="let alumno of listaAlumnos">
+    <li class="list-group-item" [class.alumno-error]="true" *ngIf="alumno.apellido !== 'Messi' && alumno.edad > 30">
+      Nombre: {{ alumno.nombre }} - Apellido: {{alumno.apellido}} - Edad:  {{ alumno.edad }} 
+    </li>
+    <li [class.alumno-exito]="true" class="list-group-item" *ngIf="alumno.apellido === 'Messi' ">Nombre: {{ alumno.nombre }} - Apellido: {{alumno.apellido | uppercase }} - Edad:  {{ alumno.edad }}</li>
+    <li [ngStyle]="{'background-color':'blue', 'color': 'white','font-weight':'bold','font-family':'Verdana, Geneva, Tahoma, sans-serif'}" *ngIf="alumno.edad < 30 ">Nombre: {{ alumno.nombre }} - Apellido: {{alumno.apellido | lowercase}} - Edad:  {{ alumno.edad }} </li>
+    </div>
 </ul>
 </div>
