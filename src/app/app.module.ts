@@ -13,6 +13,7 @@ import { MaterialModule } from './material.module';
 import { NombreApellidoPipe } from './pipes/nombre-apellido.pipe';
 import { CabeceraLetraDirective } from './directives/cabecera-letra.directive';
 import { FormularioAltaAlumnoComponent } from './components/formulario-alta-alumno/formulario-alta-alumno.component';
+import { ListaCursosComponent } from './components/lista-cursos/lista-cursos.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { FormularioAltaAlumnoComponent } from './components/formulario-alta-alum
     FormularioComponent,
     NombreApellidoPipe,
     CabeceraLetraDirective,
-    FormularioAltaAlumnoComponent
+    FormularioAltaAlumnoComponent,
+    ListaCursosComponent
   ],
   imports: [
     BrowserModule,
