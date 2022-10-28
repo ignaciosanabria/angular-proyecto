@@ -1,0 +1,21 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { AltaCursoComponent } from './components/alta-curso/alta-curso.component';
+import { CursoInicioComponent } from './components/curso-inicio/curso-inicio.component';
+import { EditarCursoComponent } from './components/editar-curso/editar-curso.component';
+import { ListaCursosComponent } from './components/lista-cursos/lista-cursos.component';
+
+
+const routes: Routes = [
+  { path: 'cursos', component: CursoInicioComponent, children: [
+    { path: 'listar', component: ListaCursosComponent },
+    { path: 'editar', component: EditarCursoComponent },
+    { path: 'agregar', component: AltaCursoComponent }
+  ]}
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class CursosRoutingModule { }

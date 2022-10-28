@@ -1,0 +1,8 @@
+<div *ngIf="!mostrarLista">
+    <h1>Bienvenido a la página principal para gestionar Cursos</h1>
+    <button mat-button (click)="listar()">Lista de Cursos</button>
+    </div>
+    <div *ngIf="mostrarLista">
+    <router-outlet></router-outlet>
+</div> 
+    

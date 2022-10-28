@@ -1,8 +1,10 @@
 <h1>Lista de cursos</h1>
 
+<div class="d-flex justify-content-center w-100">
+    <button mat-raised-button (click)="openDialog()">Agregar Curso</button>
+</div>
+
 <div class="row">
-
-
 <div *ngFor="let curso of cursos$ | async" class="col-md-3">
 <mat-card>
     <mat-card-header>
@@ -19,10 +21,10 @@
     </mat-card-content>
 
     <mat-card-actions align="end">
-        <button mat-icon-button color="primary">
+        <button mat-icon-button color="primary" (click)="editarCurso(curso)">
             <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn">
+        <button mat-icon-button color="warn" (click)="eliminarCurso(curso.id)">
             <mat-icon>delete</mat-icon>
         </button>
     </mat-card-actions>

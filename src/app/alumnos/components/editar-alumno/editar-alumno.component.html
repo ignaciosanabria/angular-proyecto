@@ -1,0 +1,51 @@
+<h3>Editar alumno</h3>
+
+<form [formGroup]="formulario" (ngSubmit)="editarAlumno()">
+    <div class="row">
+        <div class="col-md-4">
+            <mat-form-field appearance="fill" class="fill">
+                <mat-label>Nombre del alumno</mat-label>
+                <input matInput formControlName="nombre">
+            </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+            <mat-form-field appearance="fill" class="fill">
+                <mat-label>Apellido del alumno</mat-label>
+                <input matInput formControlName="apellido">
+            </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+        <mat-form-field appearance="fill">
+            <mat-label>Curso</mat-label>
+            <mat-select formControlName="curso">
+              <mat-option value="React JS">React JS</mat-option>
+              <mat-option value="Vue JS">Vue JS</mat-option>
+              <mat-option value="Angular">Angular</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+            <mat-form-field appearance="fill" class="fill">
+                <mat-label>Edad del alumno</mat-label>
+                <input matInput formControlName="edad">
+            </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+            <mat-form-field appearance="fill" class="fill">
+                <mat-label>DNI del alumno</mat-label>
+                <input matInput formControlName="dni">
+            </mat-form-field>
+        </div>
+
+
+
+        <div class="col-md-12">
+            <button mat-raised-button color="warn" class="fill" (click)="cancelar()">Cancelar Edición</button>
+            <button mat-raised-button color="primary" type="submit" class="fill">Editar Alumno</button>
+        </div>
+    </div>
+</form>

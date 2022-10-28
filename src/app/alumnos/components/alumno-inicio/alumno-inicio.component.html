@@ -1,0 +1,7 @@
+<div *ngIf="!mostrarLista">
+<h1>Bienvenido a la página principal para gestionar Alumnos</h1>
+<button mat-button (click)="listar()">Lista de Alumnos</button>
+</div>
+<div *ngIf="mostrarLista">
+<router-outlet></router-outlet>
+</div> 

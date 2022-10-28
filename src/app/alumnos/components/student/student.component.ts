@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Persona } from 'src/app/models/persona';
-import { Datos } from '../../data/alumnos';
+import { Datos } from '../../../data/alumnos';
 import { MatTableDataSource } from '@angular/material/table';
 import { Alumno } from 'src/app/models/alumno';
 import { MatDialog } from '@angular/material/dialog';
 import { FormularioAltaAlumnoComponent } from '../formulario-alta-alumno/formulario-alta-alumno.component';
-import { AlumnoService } from 'src/app/servicios/alumno.service';
+import { AlumnoService } from 'src/app/alumnos/servicios/alumno.service';
 import { Observable } from 'rxjs';
+import { NombreApellidoPipe } from '../../pipes/nombre-apellido.pipe';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-student',
@@ -23,7 +25,7 @@ export class StudentComponent implements OnInit {
   //promesa: any;
   suscripcion: any;
 
-  constructor(private dialog: MatDialog, private alumnoService :  AlumnoService) {
+  constructor(private dialog: MatDialog, private alumnoService :  AlumnoService, private router: Router) {
 
    }
 
@@ -63,9 +65,7 @@ export class StudentComponent implements OnInit {
 
   borrar(id : number)
   {
-    let position = this.alumnos.findIndex(alumno => alumno.id == id)
-    this.alumnos.splice(position, 1)
-    this.dataSource.data = this.alumnos;
+    this.alumnoService.eliminarAlumno(id);
   }
 
   openDialog() {
@@ -79,15 +79,29 @@ export class StudentComponent implements OnInit {
       //console.log(res);
       if(res != null || res != undefined)
       {
-        this.alumnos.push(
+        const alumnoNuevo : Alumno = {
+          id: this.alumnos.length + 1,
+          nombre: res.nombre,
+          apellido: res.apellido,
+          curso: res.curso,
+          edad: res.edad,
+          dni: res.dni
+        }
+        this.alumnoService.agregarAlumno(alumnoNuevo);
+        /*this.alumnos.push(
           {
             ...res,
             id:this.alumnos.length+1
           }
         );
-        this.dataSource.data = this.alumnos;
+        this.dataSource.data = this.alumnos;*/
+        //this.alumnoService.agregarAlumno();
       }
     });
+  }
+
+  editar(alumno: Alumno){
+    this.router.navigate(['alumnos/editar', alumno]);
   }
 
 }
