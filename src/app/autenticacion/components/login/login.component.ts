@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { SesionService } from 'src/app/core/servicios/sesion.service';
 
 @Component({
   selector: 'app-login',
@@ -8,15 +10,26 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  formularioUsuario : FormGroup;
+  formulario: FormGroup
 
-  constructor(private fb: FormBuilder) {
-    this.formularioUsuario = fb.group({
-      nombre : new FormControl()
+  constructor(
+    private sesionService: SesionService,
+    private router: Router
+  ) {
+    this.formulario = new FormGroup({
+      usuario: new FormControl('Abner'),
+      contrasena: new FormControl('asd.123'),
+      admin: new FormControl(true)
     })
-   }
+  }
 
   ngOnInit(): void {
+  }
+
+  login(){
+    console.log(this.formulario.value);
+    this.sesionService.login(this.formulario.value.usuario, this.formulario.value.contrasena, this.formulario.value.admin);
+    this.router.navigate(['inicio']);
   }
 
 }

@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Persona } from 'src/app/models/persona';
-import { Datos } from '../../../data/alumnos';
 import { MatTableDataSource } from '@angular/material/table';
 import { Alumno } from 'src/app/models/alumno';
 import { MatDialog } from '@angular/material/dialog';

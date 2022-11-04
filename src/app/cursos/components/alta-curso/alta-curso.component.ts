@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Curso } from 'src/app/models/curso';
 import { CursoService } from 'src/app/cursos/servicios/curso.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-alta-curso',
@@ -13,7 +13,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class AltaCursoComponent implements OnInit {
   formulario: FormGroup;
 
-  constructor(private cursoService: CursoService, public dialogRef: MatDialogRef<AltaCursoComponent>) { 
+  constructor(private cursoService: CursoService, private router: Router) { 
       this.formulario = new FormGroup({
         nombre: new FormControl('', [Validators.required]),
         comision: new FormControl(),
@@ -38,15 +38,23 @@ export class AltaCursoComponent implements OnInit {
       inscripcionAbierta: this.formulario.value.inscripcionAbierta,
       imagen: 'https://parentesis.com/imagesPosts/coder00.jpg'
     };
+    console.log("Registro de Alta");
     console.log(curso);
     this.cursoService.agregarCurso(curso);
-    this.dialogRef.close();
-    //this.router.navigate(['cursos/listar']); // localhost/cursos/listar
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Has agregado correctamente un curso!',
+      showConfirmButton: false,
+      timer: 3000
+    }).then(()=>{
+      this.router.navigate(['cursos/listar']);
+    })
   }
 
   cancelar()
   {
-    this.dialogRef.close()
+    this.router.navigate(['cursos/listar']);
   }
 
 }

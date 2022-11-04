@@ -1,51 +1,64 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, filter, map, Observable, Subject } from 'rxjs';
+import {  catchError, filter, map, Observable, throwError } from 'rxjs';
 import { Curso } from '../../models/curso';
-import { Datos } from '../../data/cursos';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CursoService {
-  private cursos: Curso[] = Datos.cursos;
-  private cursosSubject: BehaviorSubject<Curso[]>;
-  constructor() {
-    this.cursosSubject = new BehaviorSubject<Curso[]>(this.cursos);
+  constructor(
+    private http: HttpClient
+  ) {
+    
    }
 
    obtenerCursos(): Observable<Curso[]>{
-    return this.cursosSubject.asObservable();
+    //return this.cursosSubject.asObservable();
+    return this.http.get<Curso[]>('https://6360694567d3b7a0a6ae8b36.mockapi.io/cursos');
   }
 
   obtenerCurso(id: number): Observable<Curso>{
-    return this.obtenerCursos().pipe(
-      map((cursos: Curso[]) => cursos.filter((curso: Curso) => curso.id === id)[0])
+    return this.http.get<Curso>(`https://6360694567d3b7a0a6ae8b36.mockapi.io/cursos/${id}`, {
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+        'encoding': 'UTF-8'
+      })
+    }).pipe(
+      catchError(this.manejarError)
     )
   }
 
   agregarCurso(curso: Curso){
-    this.cursos.push(curso);
-    this.cursosSubject.next(this.cursos);
+    this.http.post(`https://6360694567d3b7a0a6ae8b36.mockapi.io/cursos/`, curso, {
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+        'encoding': 'UTF-8'
+      })
+    }).pipe(
+      catchError(this.manejarError)
+    ).subscribe(console.log);
   }
 
   editarCurso(curso: Curso){
-    let indice = this.cursos.findIndex((c: Curso) => c.id === curso.id);
-
-    if(indice > -1){
-      this.cursos[indice] = curso;
-    }
-
-    this.cursosSubject.next(this.cursos);
+    this.http.put<Curso>(`https://6360694567d3b7a0a6ae8b36.mockapi.io/cursos/${curso.id}`, curso).pipe(
+      catchError(this.manejarError)
+    ).subscribe(console.log);
   }
 
   eliminarCurso(id: number){
-    let indice = this.cursos.findIndex((c: Curso) => c.id === id);
+    this.http.delete<Curso>(`https://6360694567d3b7a0a6ae8b36.mockapi.io/cursos/${id}`).pipe(
+      catchError(this.manejarError)
+    ).subscribe(console.log);
+  }
 
-    if(indice > -1){
-      this.cursos.splice(indice, 1);
+  private manejarError(error: HttpErrorResponse){
+    if(error.error instanceof ErrorEvent){
+      console.warn('Error del lado del cliente', error.error.message);
+    }else{
+      console.warn('Error del lado del servidor', error.error.message);
     }
-
-    this.cursosSubject.next(this.cursos);
+    return throwError(() => new Error('Error en la comunicacion HTTP'));
   }
 }

@@ -1,5 +1,7 @@
-<div class="vertical-menu">
+<ng-container *ngIf="sesion$ | async as sesion">
+<div class="vertical-menu" *ngIf="sesion.sesionActiva">
     <a class="active" routerLink="">Inicio</a>
-    <a routerLink="alumnos">Estudiantes</a>
-    <a routerLink="cursos">Cursos</a>
+    <a routerLink="/alumnos">Estudiantes</a>
+    <a routerLink="/cursos">Cursos</a>
 </div>
+</ng-container>

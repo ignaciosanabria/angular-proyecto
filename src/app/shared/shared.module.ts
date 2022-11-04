@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
-
+import { HttpClientModule } from '@angular/common/http';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 @NgModule({
@@ -10,12 +11,16 @@ import { MaterialModule } from '../material.module';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule,
+    SweetAlert2Module
   ],
   exports: [ 
     ReactiveFormsModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    SweetAlert2Module
   ]
 })
 export class SharedModule { }

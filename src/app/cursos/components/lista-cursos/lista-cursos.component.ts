@@ -6,6 +6,7 @@ import {Alumno} from 'src/app/models/alumno';
 import { AltaCursoComponent } from '../alta-curso/alta-curso.component';
 import {MatDialog} from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lista-cursos',
@@ -20,17 +21,33 @@ export class ListaCursosComponent implements OnInit {
     this.cursos$ = this.cursoService.obtenerCursos();
   }
 
-  openDialog()
-  {
-    let dialog = this.dialog.open(AltaCursoComponent, {
-      width: '50%',
-      height: '50%',
-      
-    });
+  altaCurso(){
+    this.router.navigate(['cursos/alta']);
   }
 
   eliminarCurso(id: number){
-    this.cursoService.eliminarCurso(id);
+    //this.cursos$ = this.cursoService.obtenerCursos();
+    Swal.fire({
+      title: 'Estas seguro de borrar el curso?',
+      text: "No podras revertir esta acción!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si confirmar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.cursoService.eliminarCurso(id);
+        Swal.fire(
+          'Borrado!',
+          'Tu curso ha sido eliminado correctamente.',
+          'success'
+        ).then(()=>{
+          this.cursos$ = this.cursoService.obtenerCursos(); 
+        });
+      }
+    })
   }
 
   editarCurso(curso: Curso){

@@ -6,7 +6,7 @@ import { FormularioAltaAlumnoComponent } from './components/formulario-alta-alum
 import { StudentComponent } from './components/student/student.component';
 
 const routes: Routes = [
-  { path: 'alumnos', component: AlumnoInicioComponent, children: [
+  { path: '', component: AlumnoInicioComponent, children: [
     { path: 'listar', component: StudentComponent },
     { path: 'editar', component: EditarAlumnoComponent },
     { path: 'agregar', component: FormularioAltaAlumnoComponent }

@@ -1,9 +1,9 @@
 <h1>Lista de cursos</h1>
 
 <div class="d-flex justify-content-center w-100">
-    <button mat-raised-button (click)="openDialog()">Agregar Curso</button>
+    <button mat-raised-button (click)="altaCurso()">Agregar Curso</button>
 </div>
-
+<br>
 <div class="row">
 <div *ngFor="let curso of cursos$ | async" class="col-md-3">
 <mat-card>

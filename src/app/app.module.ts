@@ -5,10 +5,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { ToolbarComponent } from './core/components/toolbar/toolbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AutenticacionModule } from './autenticacion/autenticacion.module';
 import { CoreModule } from './core/core.module';
-import { AlumnosModule } from './alumnos/alumnos.module';
-import { CursosModule } from './cursos/cursos.module';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app.routing.module';
 
@@ -21,10 +18,7 @@ import { AppRoutingModule } from './app.routing.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AutenticacionModule,
     CoreModule,
-    AlumnosModule,
-    CursosModule,
     SharedModule,
     AppRoutingModule
   ],

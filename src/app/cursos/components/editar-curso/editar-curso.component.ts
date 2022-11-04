@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Curso } from 'src/app/models/curso';
 import { CursoService } from '../../servicios/curso.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-editar-curso',
@@ -62,8 +63,16 @@ export class EditarCursoComponent implements OnInit {
     }
 
     this.cursoService.editarCurso(c);
-
-    this.router.navigate(['cursos/listar'])
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Has modificado correctamente un curso!',
+      showConfirmButton: false,
+      timer: 3000
+    }).then(()=>{
+      this.router.navigate(['cursos/listar']);  
+    });
+    //this.router.navigate(['cursos/listar'])
   }
 
 }
