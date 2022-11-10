@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Alumno } from 'src/app/models/alumno';
 import { AlumnoService } from '../../servicios/alumno.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-editar-alumno',
@@ -56,10 +57,16 @@ export class EditarAlumnoComponent implements OnInit {
         edad: this.formulario.value.edad,
         dni: this.formulario.value.dni
        }
-
        this.alumnoService.editarAlumno(alumnoEditado);
-
-       this.router.navigate(['alumnos/listar']);
+       Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Has modificado correctamente un alumno!',
+        showConfirmButton: false,
+        timer: 3000
+      }).then(()=>{
+        this.router.navigate(['alumnos/listar']);
+      });
   }
 
   cancelar()

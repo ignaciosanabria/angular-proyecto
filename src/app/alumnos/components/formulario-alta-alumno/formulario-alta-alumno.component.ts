@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { Alumno } from 'src/app/models/alumno';
+import { AlumnoService } from 'src/app/alumnos/servicios/alumno.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-formulario-alta-alumno',
@@ -12,7 +15,7 @@ export class FormularioAltaAlumnoComponent implements OnInit {
   formularioAlumno: FormGroup;
   cursos: string[] = ['React JS', 'Angular', 'Vue JS'];
   
-  constructor( public dialogRef: MatDialogRef<FormularioAltaAlumnoComponent>, private fb: FormBuilder) {
+  constructor( private fb: FormBuilder, private router: Router, private alumnoService : AlumnoService) {
     this.formularioAlumno = fb.group({
       nombre: new FormControl('', [Validators.required]),
       apellido: new FormControl('', [Validators.required]),
@@ -30,7 +33,29 @@ export class FormularioAltaAlumnoComponent implements OnInit {
   }
 
   agregarAlumno(){
-    this.dialogRef.close(this.formularioAlumno.value);
+    const alumno : Alumno = {
+      id: Math.round(Math.random()*1000),
+      nombre: this.formularioAlumno.value.nombre,
+      apellido:this.formularioAlumno.value.apellido,
+      curso:this.formularioAlumno.value.curso,
+      edad: this.formularioAlumno.value.edad,
+      dni: this.formularioAlumno.value.dni
+
+    }
+    this.alumnoService.agregarAlumno(alumno);
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Has agregado correctamente un alumno!',
+      showConfirmButton: false,
+      timer: 3000
+    }).then(()=>{
+      this.router.navigate(['alumnos/listar']);
+    });
+  }
+
+  cancelar(){
+    this.router.navigate(['alumnos/listar']);
   }
 
 }

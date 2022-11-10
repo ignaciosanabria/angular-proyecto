@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, filter, map, Observable, Subject, throwError } from 'rxjs';
 import { Alumno } from '../../models/alumno';
-import { Datos } from '../../data/alumnos';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Datos } from 'src/app/data/alumnos';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +12,11 @@ export class AlumnoService {
   alumnos: Alumno[] = Datos.alumnos;
   private alumnosSubject: BehaviorSubject<Alumno[]>;
 
-  constructor() { 
+  constructor(private http: HttpClient) { 
    this.alumnosSubject = new BehaviorSubject<Alumno[]>(this.alumnos);
   }
 
-  obtenerAlumnosPromise(): Promise<Alumno[] | any>{
+  /*obtenerAlumnosPromise(): Promise<Alumno[] | any>{
     return new Promise((resolve, reject) => {
       if(this.alumnos.length > 0){
         resolve(this.alumnos);
@@ -25,41 +27,70 @@ export class AlumnoService {
         });
       }
     });
-  }
+  }*/
 
   obtenerAlumnos(): Observable<Alumno[]>{
+    //return this.alumnosSubject.asObservable();
+    return this.http.get<Alumno[]>(`${environment.api}/alumnos`, {
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+        'encoding': 'UTF-8'
+      })
+    }).pipe(
+      catchError(this.manejarError)
+    )
+  }
+
+  obtenerAlumnosArray() : Observable<Alumno[]>{
     return this.alumnosSubject.asObservable();
   }
 
   obtenerAlumno(id: number): Observable<Alumno>{
-    return this.obtenerAlumnos().pipe(
-      map((alumnos: Alumno[]) => alumnos.filter((alumno: Alumno) => alumno.id === id)[0])
+    return this.http.get<Alumno>(`${environment.api}/alumnos/${id}`, {
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+        'encoding': 'UTF-8'
+      })
+    }).pipe(
+      catchError(this.manejarError)
     )
   }
 
-  agregarAlumno(Alumno: Alumno){
-    this.alumnos.push(Alumno);
-    this.alumnosSubject.next(this.alumnos);
+  agregarAlumno(alumno: Alumno){
+    this.http.post(`${environment.api}/alumnos/`, alumno, {
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+        'encoding': 'UTF-8'
+      })
+    }).pipe(
+      catchError(this.manejarError)
+    ).subscribe(console.log);
   }
 
-  editarAlumno(Alumno: Alumno){
-    let indice = this.alumnos.findIndex((c: Alumno) => c.id === Alumno.id);
-
-    if(indice > -1){
-      this.alumnos[indice] = Alumno;
-    }
-
-    this.alumnosSubject.next(this.alumnos);
+  editarAlumno(alumno: Alumno){
+    this.http.put<Alumno>(`${environment.api}/alumnos/${alumno.id}`, alumno).pipe(
+      catchError(this.manejarError)
+    ).subscribe(console.log);
   }
 
   eliminarAlumno(id: number){
-    let indice = this.alumnos.findIndex((c: Alumno) => c.id === id);
+    this.http.delete<Alumno>(`${environment.api}/alumnos/${id}`).pipe(
+      catchError(this.manejarError)
+    ).subscribe(console.log);
+  }
 
-    if(indice > -1){
-      this.alumnos.splice(indice, 1);
+  private manejarError(error: HttpErrorResponse){
+    if(error.error instanceof ErrorEvent){
+      console.warn('Error del lado del cliente', error.error.message);
+    }else{
+      console.warn('Error del lado del servidor', error.error.message);
     }
 
-    this.alumnosSubject.next(this.alumnos);
+    return throwError(() => new Error('Error en la comunicacion HTTP'));
+  }
+
+  obtenerAlumnosUnit(){
+    return this.http.get(`${environment.api}/alumnos`);
   }
 
 }

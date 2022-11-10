@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Alumno } from 'src/app/models/alumno';
-import { MatDialog } from '@angular/material/dialog';
-import { FormularioAltaAlumnoComponent } from '../formulario-alta-alumno/formulario-alta-alumno.component';
 import { AlumnoService } from 'src/app/alumnos/servicios/alumno.service';
 import { Observable } from 'rxjs';
 import { NombreApellidoPipe } from '../../pipes/nombre-apellido.pipe';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-student',
@@ -17,13 +16,14 @@ export class StudentComponent implements OnInit {
 
   //alumnos: Alumno[] = Datos.alumnos;
   alumnos!: Alumno[]
-  columnas: string[] = ['nombre', 'curso', 'edad', 'dni', 'acciones'];
+  //columnas: string[] = ['nombre', 'alumno', 'edad', 'dni', 'acciones'];
+  columnas: string[] = ['nombre','curso', 'edad', 'dni', 'acciones']
   //dataSource: MatTableDataSource<Alumno> = new MatTableDataSource<Alumno>(this.alumnos);
   dataSource!: MatTableDataSource<Alumno>;
   //promesa: any;
   suscripcion: any;
 
-  constructor(private dialog: MatDialog, private alumnoService :  AlumnoService, private router: Router) {
+  constructor(private alumnoService :  AlumnoService, private router: Router) {
 
    }
 
@@ -50,11 +50,14 @@ export class StudentComponent implements OnInit {
          }).catch((error: any) => {
             console.log(error);
          });*/
-         this.suscripcion = this.alumnoService.obtenerAlumnos().subscribe(datos =>{
+        this.suscripcion = this.alumnoService.obtenerAlumnos().subscribe(datos =>{
+          //console.log("DESDE API !!");
+          //console.log(datos); 
           this.alumnos = datos;
+          //console.log(this.alumnos);
           this.dataSource = new MatTableDataSource<Alumno>(this.alumnos);
-         })
-
+          //console.log(this.dataSource);
+         });
   }
 
   ngOnDestroy(){
@@ -64,38 +67,34 @@ export class StudentComponent implements OnInit {
   borrar(id : number)
   {
     this.alumnoService.eliminarAlumno(id);
-  }
-
-  openDialog() {
-    let dialog = this.dialog.open(FormularioAltaAlumnoComponent, {
-      width: '50%',
-      height: '50%',
-      
-    });
-
-    dialog.beforeClosed().subscribe(res => {
-      //console.log(res);
-      if(res != null || res != undefined)
-      {
-        const alumnoNuevo : Alumno = {
-          id: this.alumnos.length + 1,
-          nombre: res.nombre,
-          apellido: res.apellido,
-          curso: res.curso,
-          edad: res.edad,
-          dni: res.dni
-        }
-        this.alumnoService.agregarAlumno(alumnoNuevo);
-        /*this.alumnos.push(
-          {
-            ...res,
-            id:this.alumnos.length+1
-          }
-        );
-        this.dataSource.data = this.alumnos;*/
-        //this.alumnoService.agregarAlumno();
+    Swal.fire({
+      title: 'Estas seguro de borrar el alumno?',
+      text: "No podras revertir esta acción!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si confirmar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.alumnoService.eliminarAlumno(id);
+        Swal.fire(
+          'Borrado!',
+          'Tu alumno ha sido eliminado correctamente.',
+          'success'
+        ).then(()=>{
+          this.suscripcion = this.alumnoService.obtenerAlumnos().subscribe(datos =>{
+            this.alumnos = datos;
+            this.dataSource = new MatTableDataSource<Alumno>(this.alumnos);
+           })
+        });
       }
     });
+  }
+
+  altaAlumno() {
+    this.router.navigate(['alumnos/agregar']);
   }
 
   editar(alumno: Alumno){

@@ -49,7 +49,7 @@ export class AltaCursoComponent implements OnInit {
       timer: 3000
     }).then(()=>{
       this.router.navigate(['cursos/listar']);
-    })
+    });
   }
 
   cancelar()

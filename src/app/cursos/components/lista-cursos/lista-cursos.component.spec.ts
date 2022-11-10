@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ListaCursosComponent } from './lista-cursos.component';
@@ -8,7 +9,8 @@ describe('ListaCursosComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ListaCursosComponent ]
+      declarations: [ ListaCursosComponent ],
+      imports:[HttpClientModule]
     })
     .compileComponents();
 
@@ -19,5 +21,6 @@ describe('ListaCursosComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    //expect(component).toBeFalsy();
   });
 });

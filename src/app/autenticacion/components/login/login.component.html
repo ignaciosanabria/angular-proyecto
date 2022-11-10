@@ -18,8 +18,12 @@
             <mat-slide-toggle formControlName="admin">Es admin</mat-slide-toggle>
         </div>
         <div class="col-md-2">
-            <button type="submit" mat-raised-button color="primary">Entrar</button>
+            <button type="submit" [disabled]="formulario.invalid" mat-raised-button color="primary">Entrar</button>
         </div>
     </div>
 </form>
+<div><pre>
+    Usuario Admin: Abner@gmail.com
+    contraseña: 123456
+</pre></div>
 </div>

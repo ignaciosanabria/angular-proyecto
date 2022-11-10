@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
 import { AlumnoInicioComponent } from './alumno-inicio.component';
 
@@ -20,4 +21,5 @@ describe('AlumnoInicioComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
 });

@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Curso } from 'src/app/models/curso';
 import { CursoService } from 'src/app/cursos/servicios/curso.service';
-import {Alumno} from 'src/app/models/alumno';
-import { AltaCursoComponent } from '../alta-curso/alta-curso.component';
-import {MatDialog} from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -15,7 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class ListaCursosComponent implements OnInit {
   cursos$!: Observable<Curso[]>
-  constructor(private dialog: MatDialog,private cursoService: CursoService, private router: Router) { }
+  constructor(private cursoService: CursoService, private router: Router) { }
 
   ngOnInit(): void {
     this.cursos$ = this.cursoService.obtenerCursos();
@@ -47,7 +44,7 @@ export class ListaCursosComponent implements OnInit {
           this.cursos$ = this.cursoService.obtenerCursos(); 
         });
       }
-    })
+    });
   }
 
   editarCurso(curso: Curso){

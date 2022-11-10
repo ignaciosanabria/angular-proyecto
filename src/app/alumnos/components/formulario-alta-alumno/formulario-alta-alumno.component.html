@@ -42,5 +42,6 @@
         <b *ngIf="formularioAlumno.get('dni')?.touched && formularioAlumno.get('dni')?.errors?.['pattern']">Solo se aceptan valores numericos.</b>
     </div>
     <br>
+    <button type="button" class="btn btn-danger" (click)="cancelar()">Cancelar</button>
     <button type="submit" class="btn btn-primary" [disabled]="formularioAlumno.invalid">Agregar Alumno</button>
 </form>

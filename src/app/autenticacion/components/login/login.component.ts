@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { SesionService } from 'src/app/core/servicios/sesion.service';
 
@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {
     this.formulario = new FormGroup({
-      usuario: new FormControl('Abner'),
-      contrasena: new FormControl('asd.123'),
+      usuario: new FormControl('',[Validators.required]),
+      contrasena: new FormControl('',[Validators.required]),
       admin: new FormControl(true)
     })
   }

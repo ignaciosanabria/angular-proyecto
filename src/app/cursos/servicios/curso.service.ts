@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {  catchError, filter, map, Observable, throwError } from 'rxjs';
 import { Curso } from '../../models/curso';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -16,11 +17,18 @@ export class CursoService {
 
    obtenerCursos(): Observable<Curso[]>{
     //return this.cursosSubject.asObservable();
-    return this.http.get<Curso[]>('https://6360694567d3b7a0a6ae8b36.mockapi.io/cursos');
+    return this.http.get<Curso[]>(`${environment.api}/cursos`, {
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+        'encoding': 'UTF-8'
+      })
+    }).pipe(
+      catchError(this.manejarError)
+    )
   }
 
   obtenerCurso(id: number): Observable<Curso>{
-    return this.http.get<Curso>(`https://6360694567d3b7a0a6ae8b36.mockapi.io/cursos/${id}`, {
+    return this.http.get<Curso>(`${environment.api}/usuarios/${id}`, {
       headers: new HttpHeaders({
         'content-type': 'application/json',
         'encoding': 'UTF-8'
@@ -31,7 +39,7 @@ export class CursoService {
   }
 
   agregarCurso(curso: Curso){
-    this.http.post(`https://6360694567d3b7a0a6ae8b36.mockapi.io/cursos/`, curso, {
+    this.http.post(`${environment.api}/cursos/`, curso, {
       headers: new HttpHeaders({
         'content-type': 'application/json',
         'encoding': 'UTF-8'
@@ -42,13 +50,13 @@ export class CursoService {
   }
 
   editarCurso(curso: Curso){
-    this.http.put<Curso>(`https://6360694567d3b7a0a6ae8b36.mockapi.io/cursos/${curso.id}`, curso).pipe(
+    this.http.put<Curso>(`${environment.api}/cursos/${curso.id}`, curso).pipe(
       catchError(this.manejarError)
     ).subscribe(console.log);
   }
 
   eliminarCurso(id: number){
-    this.http.delete<Curso>(`https://6360694567d3b7a0a6ae8b36.mockapi.io/cursos/${id}`).pipe(
+    this.http.delete<Curso>(`${environment.api}/cursos/${id}`).pipe(
       catchError(this.manejarError)
     ).subscribe(console.log);
   }

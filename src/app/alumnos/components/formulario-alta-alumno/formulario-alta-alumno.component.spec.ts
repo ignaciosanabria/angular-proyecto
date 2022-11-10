@@ -1,4 +1,6 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { FormularioAltaAlumnoComponent } from './formulario-alta-alumno.component';
 
@@ -8,7 +10,8 @@ describe('FormularioAltaAlumnoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FormularioAltaAlumnoComponent ]
+      declarations: [ FormularioAltaAlumnoComponent ],
+      imports:[ReactiveFormsModule, HttpClientModule]
     })
     .compileComponents();
 
