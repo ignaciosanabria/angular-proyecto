@@ -4,6 +4,8 @@ import { Curso } from 'src/app/models/curso';
 import { CursoService } from 'src/app/cursos/servicios/curso.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import {Sesion} from 'src/app/models/sesion';
+import { SesionService } from 'src/app/core/servicios/sesion.service';
 
 @Component({
   selector: 'app-lista-cursos',
@@ -11,11 +13,21 @@ import Swal from 'sweetalert2';
   styleUrls: ['./lista-cursos.component.css']
 })
 export class ListaCursosComponent implements OnInit {
-  cursos$!: Observable<Curso[]>
-  constructor(private cursoService: CursoService, private router: Router) { }
+  cursos$!: Observable<Curso[]>;
+  suscripcionSesion: any;
+  sesionActual!: Sesion;
+
+  constructor(private cursoService: CursoService, private router: Router, private sesionService: SesionService) { }
 
   ngOnInit(): void {
     this.cursos$ = this.cursoService.obtenerCursos();
+    this.suscripcionSesion = this.sesionService.obtenerSesion().subscribe(datos=>{
+       this.sesionActual = datos;
+    });
+  }
+
+  ngOnDestroy(){
+    this.suscripcionSesion.unsubscribe();
   }
 
   altaCurso(){
@@ -49,6 +61,10 @@ export class ListaCursosComponent implements OnInit {
 
   editarCurso(curso: Curso){
     this.router.navigate(['cursos/editar', curso]);
+  }
+
+  verCurso(curso: Curso){
+     this.router.navigate(['cursos/ver',curso]);
   }
   
 

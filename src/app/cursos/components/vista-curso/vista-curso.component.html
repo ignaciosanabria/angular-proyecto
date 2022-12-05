@@ -1,0 +1,39 @@
+<h1 >Consultar Curso</h1>
+<div>
+    <div class="datos">
+        <h2>Datos del curso</h2>
+        <div class="row">
+            <div class="col-3">
+                Nombre curso: {{curso.nombre}}
+            </div>
+            <div class="col-3">
+                Comision: {{curso.comision}}
+            </div>
+            <div class="col-3">
+               Profesor del curso: {{curso.profesor}}
+            </div>
+            <div class="col-3">
+               Fecha Inicio: {{ curso.fechaInicio | date: 'dd/MM/YYYY' }}
+            </div>
+            <div class="col-3">
+               Fecha de Finalización: {{ curso.fechaFin | date: 'dd/MM/YYYY' }}
+            </div>
+        </div>
+    </div>
+    <div class="cursos">
+        <h2>Alumnos inscriptos</h2>
+        <div class="row" *ngIf="inscripciones?.length != 0">
+            <div class="col-4" *ngFor="let inscripcion of inscripciones">
+                  Alumno: {{inscripcion.alumno.nombre}} {{inscripcion.alumno.apellido}}
+            </div>
+        </div>
+        <div class="row" *ngIf="inscripciones?.length == 0">
+            <div class="col-8">
+                <h3>El curso no posee alumnos inscriptos todavía.</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row  justify-content-md-center">
+        <button mat-raised-button color="warn" (click)="volverAtras()">Cerrar</button>
+    </div>
+</div>

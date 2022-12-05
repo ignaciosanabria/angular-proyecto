@@ -1,0 +1,38 @@
+<h1 >Consultar Alumno</h1>
+<div>
+    <div class="datos">
+        <h2>Datos Personales</h2>
+        <div class="row">
+            <div class="col-3">
+                DNI: {{alumno.dni}}
+            </div>
+            <div class="col-3">
+                Apellido: {{alumno.apellido}}
+            </div>
+            <div class="col-3">
+                Nombre: {{alumno.nombre}}
+            </div>
+            <div class="col-3">
+                Edad: {{alumno.edad}}
+            </div>
+        </div>
+    </div>
+
+    <div class="cursos">
+        <h2>Cursos Inscriptos</h2>
+        <div class="row" *ngIf="inscripciones?.length != 0">
+            <div class="col-4" *ngFor="let inscripcion of inscripciones">
+                  {{inscripcion.curso.nombre}}
+            </div>
+        </div>
+        <div class="row" *ngIf="inscripciones?.length == 0">
+            <div class="col-8">
+                <h3>El alumno no esta inscripto en ningún curso.</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row  justify-content-md-center">
+        <button mat-raised-button color="warn" (click)="volverAtras()">Cerrar</button>
+    </div>
+</div>

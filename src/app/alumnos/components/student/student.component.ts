@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { NombreApellidoPipe } from '../../pipes/nombre-apellido.pipe';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { Sesion } from 'src/app/models/sesion';
+import { SesionService } from 'src/app/core/servicios/sesion.service';
 
 @Component({
   selector: 'app-student',
@@ -22,8 +24,10 @@ export class StudentComponent implements OnInit {
   dataSource!: MatTableDataSource<Alumno>;
   //promesa: any;
   suscripcion: any;
+  suscripcionSesion: any;
+  sesionActual!: Sesion;
 
-  constructor(private alumnoService :  AlumnoService, private router: Router) {
+  constructor(private alumnoService :  AlumnoService, private router: Router, private sesionService: SesionService) {
 
    }
 
@@ -51,22 +55,23 @@ export class StudentComponent implements OnInit {
             console.log(error);
          });*/
         this.suscripcion = this.alumnoService.obtenerAlumnos().subscribe(datos =>{
-          //console.log("DESDE API !!");
-          //console.log(datos); 
           this.alumnos = datos;
-          //console.log(this.alumnos);
           this.dataSource = new MatTableDataSource<Alumno>(this.alumnos);
-          //console.log(this.dataSource);
+         });
+
+         this.suscripcionSesion = this.sesionService.obtenerSesion().subscribe(datos=>{
+            this.sesionActual = datos;
          });
   }
 
   ngOnDestroy(){
     this.suscripcion.unsubscribe();
+    this.suscripcionSesion.unsubscribe();
   }
 
   borrar(id : number)
   {
-    this.alumnoService.eliminarAlumno(id);
+    //this.alumnoService.eliminarAlumno(id);
     Swal.fire({
       title: 'Estas seguro de borrar el alumno?',
       text: "No podras revertir esta acción!",
@@ -99,6 +104,10 @@ export class StudentComponent implements OnInit {
 
   editar(alumno: Alumno){
     this.router.navigate(['alumnos/editar', alumno]);
+  }
+
+  verAlumno(alumno: Alumno){
+    this.router.navigate(['alumnos/ver',alumno]);
   }
 
 }

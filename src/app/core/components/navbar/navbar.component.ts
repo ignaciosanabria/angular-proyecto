@@ -18,6 +18,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.sesion$ = this.sesionService.obtenerSesion();
+    console.log(this.sesion$);
   }
 
 

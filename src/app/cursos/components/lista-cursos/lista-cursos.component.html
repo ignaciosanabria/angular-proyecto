@@ -21,11 +21,14 @@
     </mat-card-content>
 
     <mat-card-actions align="end">
-        <button mat-icon-button color="primary" (click)="editarCurso(curso)">
+        <button mat-icon-button color="primary" *ngIf="sesionActual.usuarioActivo?.admin" (click)="editarCurso(curso)">
             <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn" (click)="eliminarCurso(curso.id)">
+        <button mat-icon-button color="warn" *ngIf="sesionActual.usuarioActivo?.admin" (click)="eliminarCurso(curso.id)">
             <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button (click)="verCurso(curso)">
+            <mat-icon>search</mat-icon>
         </button>
     </mat-card-actions>
 </mat-card>

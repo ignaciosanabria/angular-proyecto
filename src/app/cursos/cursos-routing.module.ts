@@ -4,6 +4,7 @@ import { AltaCursoComponent } from './components/alta-curso/alta-curso.component
 import { CursoInicioComponent } from './components/curso-inicio/curso-inicio.component';
 import { EditarCursoComponent } from './components/editar-curso/editar-curso.component';
 import { ListaCursosComponent } from './components/lista-cursos/lista-cursos.component';
+import { VistaCursoComponent } from './components/vista-curso/vista-curso.component';
 
 
 const routes: Routes = [
@@ -11,7 +12,8 @@ const routes: Routes = [
     { path: 'alta', component: AltaCursoComponent},
     { path: 'listar', component: ListaCursosComponent },
     { path: 'editar', component: EditarCursoComponent },
-    { path: 'agregar', component: AltaCursoComponent }
+    { path: 'agregar', component: AltaCursoComponent },
+    { path: 'ver', component: VistaCursoComponent}
   ]}
 ];
 

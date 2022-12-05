@@ -7,6 +7,7 @@ import { AltaCursoComponent } from './components/alta-curso/alta-curso.component
 import { EditarCursoComponent } from './components/editar-curso/editar-curso.component';
 import { CursoInicioComponent } from './components/curso-inicio/curso-inicio.component';
 import { ListaCursosComponent } from './components/lista-cursos/lista-cursos.component';
+import { VistaCursoComponent } from './components/vista-curso/vista-curso.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ListaCursosComponent } from './components/lista-cursos/lista-cursos.com
     ListaCursosComponent,
     AltaCursoComponent,
     EditarCursoComponent,
-    CursoInicioComponent
+    CursoInicioComponent,
+    VistaCursoComponent
   ],
   imports: [
     CommonModule,

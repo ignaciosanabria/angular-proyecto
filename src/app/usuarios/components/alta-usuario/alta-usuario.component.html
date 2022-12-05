@@ -1,0 +1,18 @@
+<h1>Formulario para dar de alta un usuario</h1>
+
+<form [formGroup]="formularioUsuario" (ngSubmit)="agregarUsuario()">
+    <div class="form-group">
+        <label for="">Usuario:</label>
+        <input type="text" class="form-control" placeholder="Ingrese el usuario" formControlName="usuario">
+        <b *ngIf="formularioUsuario.get('usuario')?.touched && formularioUsuario.get('nombre')?.errors?.['required']">El campo usuario es requerido</b>
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="">Contrasena:</label>
+        <input type="text" class="form-control" placeholder="Ingrese su contrasena" formControlName="contrasena">
+        <b *ngIf="formularioUsuario.get('apellido')?.touched && formularioUsuario.get('apellido')?.errors?.['required']">El campo contrasena es requerido</b>
+    </div>
+    <br>
+    <button type="button" class="btn btn-danger" (click)="cancelar()">Cancelar</button>
+    <button type="submit" class="btn btn-primary" [disabled]="formularioUsuario.invalid">Agregar Usuario</button>
+</form>

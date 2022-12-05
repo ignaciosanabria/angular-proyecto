@@ -1,0 +1,39 @@
+<div>
+    <h1>Lista de Usuarios de Academia IT.</h1>
+</div>
+<div class="d-flex justify-content-center w-100">
+    <button mat-raised-button (click)="altaUsuario()">Agregar Usuario</button>
+</div>
+<div class="row">
+  <table mat-table [dataSource]="dataSource" class="col-md-12">
+      <!-- 'usuario' -->
+      <ng-container matColumnDef="usuario">
+          <th mat-header-cell *matHeaderCellDef appCabeceraLetra>Usuario</th>
+          <td mat-cell *matCellDef="let usuario">{{ usuario.usuario }}</td>
+      </ng-container>
+
+      <!-- 'contrasena' -->
+      <ng-container matColumnDef="contrasena">
+          <th mat-header-cell *matHeaderCellDef appCabeceraLetra >Contrasena</th>
+          <td mat-cell *matCellDef="let usuario">{{ usuario.contrasena }}</td>
+      </ng-container>
+      
+
+      
+      <!-- 'acciones' -->
+      <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef appCabeceraLetra>Acciones</th>
+          <td mat-cell *matCellDef="let usuario">
+              <button mat-icon-button (click)="editar(usuario)">
+                  <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="borrar(usuario.id)">
+                  <mat-icon>delete</mat-icon>
+              </button>
+          </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnas"></tr>
+  </table>
+</div>

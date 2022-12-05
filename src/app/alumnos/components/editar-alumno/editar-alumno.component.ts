@@ -25,13 +25,12 @@ export class EditarAlumnoComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((parametros) => {
-      console.log(parametros)
+      //console.log(parametros)
 
       this.alumno = {
         id: parseInt(parametros.get('id') || '0'),
         nombre: parametros.get('nombre') || '',
         apellido: parametros.get('apellido') || '',
-        curso: parametros.get('curso') || '',
         edad: parseInt(parametros.get('edad') || '0'),
         dni: parseInt(parametros.get('dni') || '0')
       }
@@ -40,7 +39,6 @@ export class EditarAlumnoComponent implements OnInit {
 
         nombre: new FormControl(this.alumno.nombre, [Validators.required]),
         apellido: new FormControl(this.alumno.apellido),
-        curso: new FormControl(this.alumno.curso),
         edad: new FormControl(this.alumno.edad),
         dni: new FormControl(this.alumno.dni)
       });
@@ -53,7 +51,6 @@ export class EditarAlumnoComponent implements OnInit {
         id: this.alumno.id,
         nombre: this.formulario.value.nombre,
         apellido: this.formulario.value.apellido,
-        curso: this.formulario.value.curso,
         edad: this.formulario.value.edad,
         dni: this.formulario.value.dni
        }

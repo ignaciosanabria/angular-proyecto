@@ -1,0 +1,8 @@
+<div *ngIf="!mostrarLista">
+    <h1>Bienvenido a la página principal para gestionar Usuarios</h1>
+    <button mat-button id="mostrarLista" (click)="listar()">Lista de Usuarios</button>
+    </div>
+    <div *ngIf="mostrarLista">
+    <router-outlet></router-outlet>
+</div> 
+    

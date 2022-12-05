@@ -19,7 +19,6 @@ export class FormularioAltaAlumnoComponent implements OnInit {
     this.formularioAlumno = fb.group({
       nombre: new FormControl('', [Validators.required]),
       apellido: new FormControl('', [Validators.required]),
-      curso: new FormControl('', [Validators.required]),
       edad: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
       dni: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
     });
@@ -37,7 +36,6 @@ export class FormularioAltaAlumnoComponent implements OnInit {
       id: Math.round(Math.random()*1000),
       nombre: this.formularioAlumno.value.nombre,
       apellido:this.formularioAlumno.value.apellido,
-      curso:this.formularioAlumno.value.curso,
       edad: this.formularioAlumno.value.edad,
       dni: this.formularioAlumno.value.dni
 

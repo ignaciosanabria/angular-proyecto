@@ -9,6 +9,7 @@ import { SharedModule } from '../shared/shared.module';
 import { NombreApellidoPipe } from './pipes/nombre-apellido.pipe';
 import { EditarAlumnoComponent } from './components/editar-alumno/editar-alumno.component';
 import { CabeceraLetraDirective } from './directives/cabecera-letra.directive';
+import { VistaAlumnoComponent } from './components/vista-alumno/vista-alumno.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { CabeceraLetraDirective } from './directives/cabecera-letra.directive';
     FormularioAltaAlumnoComponent,
     NombreApellidoPipe,
     EditarAlumnoComponent,
-    CabeceraLetraDirective
+    CabeceraLetraDirective,
+    VistaAlumnoComponent
   ],
   imports: [
     CommonModule,

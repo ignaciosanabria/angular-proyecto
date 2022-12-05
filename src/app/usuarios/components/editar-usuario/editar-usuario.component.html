@@ -1,0 +1,24 @@
+<h1>Editar Usuario</h1>
+<form [formGroup]="formulario" (ngSubmit)="editarUsuario()">
+    <div class="row">
+        <div class="col-md-4">
+            <mat-form-field appearance="fill" class="fill">
+                <mat-label>Usuario</mat-label>
+                <input matInput formControlName="usuario">
+            </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+            <mat-form-field appearance="fill" class="fill">
+                <mat-label>Contrasena</mat-label>
+                <input matInput formControlName="contrasena">
+            </mat-form-field>
+        </div>
+
+
+        <div class="col-md-12">
+            <button mat-raised-button color="warn" class="fill" (click)="cancelar()">Cancelar</button>
+            <button mat-raised-button color="primary" type="submit" class="fill">Editar Usuario</button>
+        </div>
+    </div>
+</form>
