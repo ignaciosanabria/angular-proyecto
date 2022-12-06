@@ -27,6 +27,9 @@ export class SesionService {
 
   login(usuario: string, contrasena: string, admin: boolean) : boolean{
     //console.log(this.usuarios);
+    this.suscripcion = this.usuarioService.obtenerUsuarios().subscribe(datos =>{
+      this.usuarios = datos;
+     });
     let encontro : boolean = false;
     for(let i = 0; i < this.usuarios.length;i++){
       if(this.usuarios[i].usuario === usuario && this.usuarios[i].contrasena === contrasena && this.usuarios[i].admin === admin){

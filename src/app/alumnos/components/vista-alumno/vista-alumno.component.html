@@ -4,16 +4,16 @@
         <h2>Datos Personales</h2>
         <div class="row">
             <div class="col-3">
-                DNI: {{alumno.dni}}
+                <p class="texto">DNI: {{alumno.dni}}</p>
             </div>
             <div class="col-3">
-                Apellido: {{alumno.apellido}}
+                <p class="texto">Apellido: {{alumno.apellido}}</p>
             </div>
             <div class="col-3">
-                Nombre: {{alumno.nombre}}
+               <p class="texto"> Nombre: {{alumno.nombre}}</p>
             </div>
             <div class="col-3">
-                Edad: {{alumno.edad}}
+               <p class="texto"> Edad: {{alumno.edad}}</p>
             </div>
         </div>
     </div>
@@ -21,9 +21,29 @@
     <div class="cursos">
         <h2>Cursos Inscriptos</h2>
         <div class="row" *ngIf="inscripciones?.length != 0">
-            <div class="col-4" *ngFor="let inscripcion of inscripciones">
-                  {{inscripcion.curso.nombre}}
+            <div class="col-12">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Curso</th>
+                    <th scope="col">Comision</th>
+                    <th scope="col">Profesor</th>
+                    <th scope="col">Accion</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let inscripcion of inscripciones">
+                    <td>{{inscripcion.curso.nombre}}</td>
+                    <td>{{inscripcion.curso.comision}}</td>
+                    <td>{{inscripcion.curso.profesor}}</td>
+                    <td><button mat-icon-button (click)="eliminar(inscripcion)"><mat-icon>delete</mat-icon></button></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
+           <!--  <div class="col-4" *ngFor="let inscripcion of inscripciones">
+                  <p class="texto">{{inscripcion.curso.nombre}} - {{inscripcion.curso.comision}} </p><button mat-icon-button (click)="eliminar(inscripcion)"><mat-icon>delete</mat-icon></button>
+                </div> -->
         </div>
         <div class="row" *ngIf="inscripciones?.length == 0">
             <div class="col-8">

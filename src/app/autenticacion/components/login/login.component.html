@@ -1,5 +1,5 @@
 <div class="center">
-<h1>Iniciar sesion</h1>
+<h1>Iniciar sesión</h1>
 <form [formGroup]="formulario" (ngSubmit)="login()">
     <div class="row">
         <div class="col-md-4">
@@ -11,7 +11,7 @@
         <div class="col-md-4">
             <mat-form-field appearance="fill" class="fill">
                 <mat-label>Contrasena</mat-label>
-                <input matInput formControlName="contrasena">
+                <input matInput formControlName="contrasena" type="password">
             </mat-form-field>
         </div>
         <div class="col-md-2">

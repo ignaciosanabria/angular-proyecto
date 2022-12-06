@@ -19,7 +19,7 @@ export class StudentComponent implements OnInit {
   //alumnos: Alumno[] = Datos.alumnos;
   alumnos!: Alumno[]
   //columnas: string[] = ['nombre', 'alumno', 'edad', 'dni', 'acciones'];
-  columnas: string[] = ['nombre','curso', 'edad', 'dni', 'acciones']
+  columnas: string[] = ['nombre', 'edad', 'dni', 'acciones']
   //dataSource: MatTableDataSource<Alumno> = new MatTableDataSource<Alumno>(this.alumnos);
   dataSource!: MatTableDataSource<Alumno>;
   //promesa: any;

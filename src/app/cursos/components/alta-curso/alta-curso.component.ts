@@ -38,8 +38,8 @@ export class AltaCursoComponent implements OnInit {
       inscripcionAbierta: this.formulario.value.inscripcionAbierta,
       imagen: 'https://parentesis.com/imagesPosts/coder00.jpg'
     };
-    console.log("Registro de Alta");
-    console.log(curso);
+    //console.log("Registro de Alta");
+    //console.log(curso);
     this.cursoService.agregarCurso(curso);
     Swal.fire({
       position: 'top-end',

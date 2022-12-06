@@ -35,19 +35,19 @@ export class InscripcionService {
       })
     }).pipe(
       catchError(this.manejarError)
-    ).subscribe(console.log);
+    ).subscribe();
   }
 
   editarInscripcion(inscripcion: Inscripcion){
     this.http.put<Inscripcion>(`${environment.api}/inscripciones/${inscripcion.id}`, inscripcion).pipe(
       catchError(this.manejarError)
-    ).subscribe(console.log);
+    ).subscribe();
   }
 
   eliminarInscripcion(inscripcion: Inscripcion){
     this.http.delete<Inscripcion>(`${environment.api}/inscripciones/${inscripcion.id}`).pipe(
       catchError(this.manejarError)
-    ).subscribe(console.log);
+    ).subscribe();
   }
 
   private manejarError(error: HttpErrorResponse){

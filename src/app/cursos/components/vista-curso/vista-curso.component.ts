@@ -4,6 +4,7 @@ import { Inscripcion } from 'src/app/models/inscripcion';
 import {Observable, map} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {InscripcionService} from 'src/app/inscripciones/servicios/inscripcion.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-vista-curso',
@@ -52,4 +53,30 @@ export class VistaCursoComponent implements OnInit {
     this.router.navigate(['cursos/listar']);
   }
 
+  eliminar(inscripcion: Inscripcion){
+    Swal.fire({
+      title: 'Estas seguro de cancelar esta inscripción?',
+      text: "No podras revertir esta acción!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si confirmar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed){
+         this.inscripcionService.eliminarInscripcion(inscripcion);
+         Swal.fire(
+          'Borrado!',
+          'La inscripción fue anulada correctamente.',
+          'success'
+        ).then(()=>{
+          this.suscripcion = this.inscripcionesCurso$.subscribe(datos=>{
+            this.inscripciones = datos;
+          });
+        });
+       }
+    });
+    }
+          
 }

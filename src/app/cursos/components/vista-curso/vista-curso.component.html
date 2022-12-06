@@ -3,29 +3,49 @@
     <div class="datos">
         <h2>Datos del curso</h2>
         <div class="row">
-            <div class="col-3">
-                Nombre curso: {{curso.nombre}}
+            <div class="col-6">
+                <p class="texto">Nombre curso: {{curso.nombre}}</p>
             </div>
-            <div class="col-3">
-                Comision: {{curso.comision}}
+            <div class="col-6">
+                <p class="texto">Comision: {{curso.comision}}</p>
             </div>
-            <div class="col-3">
-               Profesor del curso: {{curso.profesor}}
+            <div class="col-6">
+                <p class="texto">Profesor del curso: {{curso.profesor}}</p>
             </div>
-            <div class="col-3">
-               Fecha Inicio: {{ curso.fechaInicio | date: 'dd/MM/YYYY' }}
+            <div class="col-6">
+                <p class="texto">Fecha Inicio: {{ curso.fechaInicio | date: 'dd/MM/YYYY' }}</p>
             </div>
-            <div class="col-3">
-               Fecha de Finalización: {{ curso.fechaFin | date: 'dd/MM/YYYY' }}
+            <div class="col-6">
+               <p class="texto">Fecha de Finalización: {{ curso.fechaFin | date: 'dd/MM/YYYY' }}</p>
             </div>
         </div>
     </div>
     <div class="cursos">
         <h2>Alumnos inscriptos</h2>
         <div class="row" *ngIf="inscripciones?.length != 0">
-            <div class="col-4" *ngFor="let inscripcion of inscripciones">
-                  Alumno: {{inscripcion.alumno.nombre}} {{inscripcion.alumno.apellido}}
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                          <th scope="col">Nombre</th>
+                          <th scope="col">Apellido</th>
+                          <th scope="col">DNI</th>
+                          <th scope="col">Accion</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let inscripcion of inscripciones">
+                          <td>{{inscripcion.alumno.nombre}}</td>
+                          <td>{{inscripcion.alumno.apellido}}</td>
+                          <td>{{inscripcion.alumno.dni}}</td>
+                          <td><button mat-icon-button (click)="eliminar(inscripcion)"><mat-icon>delete</mat-icon></button></td>
+                        </tr>
+                      </tbody>
+                </table>
             </div>
+            <!--<div class="col-4" *ngFor="let inscripcion of inscripciones">
+                  Alumno: {{inscripcion.alumno.nombre}} {{inscripcion.alumno.apellido}}
+            </div> -->
         </div>
         <div class="row" *ngIf="inscripciones?.length == 0">
             <div class="col-8">

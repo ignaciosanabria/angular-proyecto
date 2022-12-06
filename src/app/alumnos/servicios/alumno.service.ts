@@ -64,19 +64,19 @@ export class AlumnoService {
       })
     }).pipe(
       catchError(this.manejarError)
-    ).subscribe(console.log);
+    ).subscribe();
   }
 
   editarAlumno(alumno: Alumno){
     this.http.put<Alumno>(`${environment.api}/alumnos/${alumno.id}`, alumno).pipe(
       catchError(this.manejarError)
-    ).subscribe(console.log);
+    ).subscribe();
   }
 
   eliminarAlumno(id: number){
     this.http.delete<Alumno>(`${environment.api}/alumnos/${id}`).pipe(
       catchError(this.manejarError)
-    ).subscribe(console.log);
+    ).subscribe();
   }
 
   private manejarError(error: HttpErrorResponse){

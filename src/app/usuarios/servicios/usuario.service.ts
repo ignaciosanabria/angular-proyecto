@@ -43,19 +43,19 @@ export class UsuarioService {
       })
     }).pipe(
       catchError(this.manejarError)
-    ).subscribe(console.log);
+    ).subscribe();
   }
 
   editarUsuario(usuario: Usuario){
     this.http.put<Usuario>(`${environment.api}/usuarios/${usuario.id}`, usuario).pipe(
       catchError(this.manejarError)
-    ).subscribe(console.log);
+    ).subscribe();
   }
 
   eliminarUsuario(id: number){
     this.http.delete<Usuario>(`${environment.api}/usuarios/${id}`).pipe(
       catchError(this.manejarError)
-    ).subscribe(console.log);
+    ).subscribe();
   }
 
   private manejarError(error: HttpErrorResponse){

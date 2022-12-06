@@ -38,7 +38,6 @@ export class FormularioAltaAlumnoComponent implements OnInit {
       apellido:this.formularioAlumno.value.apellido,
       edad: this.formularioAlumno.value.edad,
       dni: this.formularioAlumno.value.dni
-
     }
     this.alumnoService.agregarAlumno(alumno);
     Swal.fire({
